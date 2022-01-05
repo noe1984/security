@@ -1,0 +1,69 @@
+GLOSARIO
+
+Ciberseguridad: todo lo que implica proteger el acceso o uso no autorizado de datos electrónicos.
+
+Seguridad de la información: medidas para resguardar y proteger la información buscando mantener la confidencialidad, la disponibilidad e integridad de datos.
+
+Código seguro: es una área de la ciberseguridad que se dedica a asegurar que el desarrollo de software cumpla con requisitos funcionales de ciberseguridad y 
+normativas según el caso de uso.
+
+Seguridad aplicativa en este segmento encuentras el pentesting, que se dedica a realizar pruebas de penetración y análisis de vulnerabilidades. Es decir, 
+se simula el “hackeo” o ataque informático de manera ética/legal sobre un aplicativo web, móvil o la red para encontrar vulnerabilidades, reportarlas a los 
+desarrolladores o administradores del sistema y protegerse de ataques reales.
+
+Criptografía: es un área que estudia el cifrado de información, busca que un mensaje solo pueda ser leído por personas autorizadas.
+
+Esteganografía: es una técnica que consiste en insertar un mensaje secreto dentro de una información aparentemente inocua.
+
+Redes computacionales: es el área de la informática que estudia la comunicación o interconexión entre dos computadoras mediante una tecnología.
+
+Ingeniería social: consiste en técnicas de manipulación que tienen el objetivo de obtener información de interés para el atacante, ciertos accesos o permisos en un sistema. 
+Dicha manipulación se realiza sobre usuarios legítimos, sin que ellos se den cuenta. Por ejemplo, el empleado de un banco.
+
+Ciberinteligencia: adquisición y análisis de información para identificar, rastrear y predecir las capacidades, intenciones y actividades cibernéticas que ayuden a 
+identificar amenazas.
+
+Ingeniería forense: la ingeniería forense consiste en identificar la causa en el fallo de un sistema ya sea para mejorarlo o encontrar a los responsables.
+
+Scripting: es un área de especialización que automatiza tareas y herramientas de hacking como exploits, para facilitar las auditorías de ciberseguridad o la búsqueda 
+de vulnerabilidades.
+
+Malware: esta es simple, significa Software Malicioso. Es decir, es una pieza de software que tiene la intención de obtener, alterar o afectar alguna pieza de 
+información digital. Hay de varios tipos:
+
+Spyware: es una clase de malware espía que puede capturar todo lo que sucede en el equipo infectado e incluso controlarlo. Normalmente detrás de esto hay una persona 
+con otro software que controla el spyware, llamado “Comando y Control”.
+
+Virus: cualquier código que puede infectar tu computadora.
+
+Troyanos: virus que aparenta hacer otra cosa mientras en realidad tiene intenciones maliciosas.
+
+Ransomware: es un software que secuestra tu computador, tomando control de este hasta que pagues una suma de rescate.
+
+Rootkits: es un malware que tiene como objetivo ganar privilegios administrativos tratando de llegar al kernel.
+
+
+-----TERMINAL
+
+ls -lh          list files by weight
+file 'nfile'    view file information 
+
+HANDLING FILES AND DIRECTORIES
+ls -lS          (Size) displayed and sorted by weight
+mkdir           create directory
+touch           create file
+tree -L         display directories "-L" (levels) if doesn't exists tree:
+                sudo apt-get install tree
+                sudo apt-get update
+mkdir           dir1 dir2 etc 
+cp file nfile   copy directory and name it ndir
+
+mv file ..      move the file to the previous directory
+mv file nfile   rename the file as nfile(trick)
+mv dir1 dir2    move the dir1 content to dir2
+
+rm file -i      remove file 'interactive' way, to remove confirm with 'y'
+rm file         remove file
+rm -ri dir1     remove dir1 'interactive' way, to remove confirm with 'y'
+rm -r dir1      recursive remove  
+rm -rf dir1     forcibly remove (dangerous way)
