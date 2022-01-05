@@ -43,27 +43,40 @@ Ransomware: es un software que secuestra tu computador, tomando control de este 
 Rootkits: es un malware que tiene como objetivo ganar privilegios administrativos tratando de llegar al kernel.
 
 
------TERMINAL
+---------TERMINAL--------
 
 ls -lh          list files by weight
 file 'nfile'    view file information 
 
-HANDLING FILES AND DIRECTORIES
-ls -lS          (Size) displayed and sorted by weight
-mkdir           create directory
-touch           create file
-tree -L         display directories "-L" (levels) if doesn't exists tree:
-                sudo apt-get install tree
-                sudo apt-get update
-mkdir           dir1 dir2 etc 
-cp file nfile   copy directory and name it ndir
+----HANDLING FILES AND DIRECTORIES
+ls -lS              (Size) displayed and sorted by weight
+mkdir               create directory
+touch               create file
+tree -L             display directories "-L" (levels) if doesn't exists tree:
+                    sudo apt-get install tree
+                    sudo apt-get update
+mkdir               dir1 dir2 etc 
+cp file nfile       copy directory and name it ndir
 
-mv file ..      move the file to the previous directory
-mv file nfile   rename the file as nfile(trick)
-mv dir1 dir2    move the dir1 content to dir2
+----MOVE FILES AND DIRECTORIES
+mv file ..          move the file to the previous directory
+mv file nfile       rename the file as nfile(trick)
+mv dir1 dir2        move the dir1 content to dir2
 
-rm file -i      remove file 'interactive' way, to remove confirm with 'y'
-rm file         remove file
-rm -ri dir1     remove dir1 'interactive' way, to remove confirm with 'y'
-rm -r dir1      recursive remove  
-rm -rf dir1     forcibly remove (dangerous way)
+
+----REMOVE FILES AND DIRECTORIES
+rm file -i          remove file 'interactive' way, to remove confirm with 'y'
+rm file             remove file
+rm -ri dir1         remove dir1 'interactive' way, to remove confirm with 'y'
+rm -r dir1          recursive remove  
+rm -r dir1 dir2 etc...  remove multiple directories
+rm -rf dir1         forcibly remove (dangerous way)
+
+----EXPLORE FILES
+head myfile         shows 10 first lines
+head myfile -n 15   shows the 'n' number of lines     
+less myfile         allows more file browsing features, para salir presionar 'q'
+to open a file in linux: nautilus myfile
+In wsl to open a file: wslview myfile or wslview myDir in directory case
+
+
