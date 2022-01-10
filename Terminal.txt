@@ -79,4 +79,15 @@ less myfile         allows more file browsing features, para salir presionar 'q'
 to open a file in linux: nautilus myfile
 In wsl to open a file: wslview myfile or wslview myDir in directory case
 
+----COMMAND
+help myCommand      shows what the command is for, in zsh this command doesn't work
 
+----WILDCARDS
+example
+ls *.txt            search for files that have the extension .txt
+ls datos*           files that have the word 'datos'
+ls datos?           files that have the word 'datos' + 1 character 
+ls datos???         files that have the word 'datos' + 3 characters
+ls [[:upper:]]*     files that start with a capital letter
+ls [[:lower:]]*     files that start with a lowercase letter
+ls [ad]*            files that start with 'a' or 'd' and to the right whatever
