@@ -75,7 +75,7 @@ rm -rf dir1         forcibly remove (dangerous way)
 ----EXPLORE FILES
 head myfile         shows 10 first lines
 head myfile -n 15   shows the 'n' number of lines     
-less myfile         allows more file browsing features, para salir presionar 'q'
+less myfile         allows more file browsing features, to exit press q 'q'
 to open a file in linux: nautilus myfile
 In wsl to open a file: wslview myfile or wslview myDir in directory case
 
@@ -91,3 +91,17 @@ ls datos???         files that have the word 'datos' + 3 characters
 ls [[:upper:]]*     files that start with a capital letter
 ls [[:lower:]]*     files that start with a lowercase letter
 ls [ad]*            files that start with 'a' or 'd' and to the right whatever
+
+
+----REDIRECTIONS
+--ls
+ls Pictures > misarchivos.txt       save the files that are in Pictures in misarchivos.txt 
+ls Downloads >> misarchivos.txt     concatenates what is in Downloads with what is in misarchivos.txt
+ls lklkfl 2> error.txt              redirects an error that goes through the second channel to the error.txt file
+ls lklkfl 2> output.txt 2>&1        redirect whatever goes through either the first or the second channel to the output.txt file
+
+----PIPE OPERATOR
+
+ls -la | less                           makes the output standard become the input standard of another command examples                     
+ls -la | tee output.txt | less          create a file named output.txt and display it on the screen
+ls -la | sort | tee output.txt | less   the same but sorted

@@ -1,0 +1,18 @@
+total 8
+drwxr-xr-x 1 neomatrix neomatrix  512 Jan 21 17:08 .
+drwxr-xr-x 1 neomatrix neomatrix  512 Jan 21 17:08 ..
+drwxr-xr-x 1 neomatrix neomatrix  512 Jan 10 13:02 .git
+-rw-r--r-- 1 neomatrix neomatrix  222 Dec 20 09:28 .gitignore
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 2
+-rw-r--r-- 1 neomatrix neomatrix 5405 Jan 18 19:00 Terminal.txt
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 abc
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 datos
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 datos1
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 dot.txt
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 dot2.txt
+-rw-r--r-- 1 neomatrix neomatrix   32 Jan 10 13:43 error.txt
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 file.txt
+-rw-r--r-- 1 neomatrix neomatrix    0 Jan  9 21:58 index.html
+-rw-r--r-- 1 neomatrix neomatrix   33 Jan 10 13:45 output.txt
+drwxr-xr-x 1 neomatrix neomatrix  512 Jan  5 13:51 prueba
+-rw-r--r-- 1 neomatrix neomatrix   13 Jan 10 13:49 salida.txt
