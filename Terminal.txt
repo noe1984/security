@@ -105,3 +105,9 @@ ls lklkfl 2> output.txt 2>&1        redirect whatever goes through either the fi
 ls -la | less                           makes the output standard become the input standard of another command examples                     
 ls -la | tee output.txt | less          create a file named output.txt and display it on the screen
 ls -la | sort | tee output.txt | less   the same but sorted
+
+----CONTROL OPERATORS
+ls; mdkir mydir; cal            executes commands one after another
+ls & date & cal                 executes commands at the same time in the background
+mdir myDir && cd myDir          executes the second command if the first was succesful
+mdir myDir || cd myDir          executes the command even if any of them are not succesful
