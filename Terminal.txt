@@ -111,3 +111,62 @@ ls; mdkir mydir; cal            executes commands one after another
 ls & date & cal                 executes commands at the same time in the background
 mdir myDir && cd myDir          executes the second command if the first was succesful
 mdir myDir || cd myDir          executes the command even if any of them are not succesful
+
+
+
+----PERMISSIONS
+
+TYPES OF FILES
+- normal
+d directory
+l symbolic link
+b special block
+
+MODE TYPES 
+r read 
+w write 
+x execute 
+
+OCTAL MODE 
+R W X
+1 1 1 | 7 -> rwx
+1 1 0 | 6 -> rw
+1 0 1 | 5 -> rx
+1 0 0 | 4 -> r
+0 1 1 | 3 -> wx
+0 1 0 | 2 -> wx
+0 0 1 | 1 -> x
+0 0 0 | 0 -> 0
+
+SYMBOLIC MODE
+u user
+g group
+o others 
+a all 
+
+CHANGE PERMISSIONS
+chmod           change file permissions
+
+example:
+    -rw-r--r-- 1 neomatrix neomatrix 0 Jan 23 23:22 mitexto.txt
+chmod 755 chmod 755 mitexto.txt
+    -rwxr-xr-x 1 neomatrix neomatrix 0 Jan 23 23:22 mitexto.txt
+
+QUIT PERMISSIONS
+chmod u-r mitexto.txt
+    --wxr-xr-x 1 neomatrix neomatrix 0 Jan 23 23:22 mitexto.txt
+cat mitexto.txt
+    cat: mitexto.txt: Permission denied
+chmod u+r mitexto.txt       add permissions
+    -rwxr-xr-x 1 neomatrix neomatrix 0 Jan 23 23:22 mitexto.txt
+chmod chmod u-x,go=w mitexto.txt        
+    -rw--w--w- 1 neomatrix neomatrix 0 Jan 23 23:22 mitexto.txt
+
+CHANGE USER 
+su root         *en ubuntu sudo su root
+
+CHANGE PASSWORD
+passwd 
+
+
+
