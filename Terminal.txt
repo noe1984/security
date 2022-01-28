@@ -169,4 +169,15 @@ CHANGE PASSWORD
 passwd 
 
 
+ENVIROMENT VARIABLES 
+accessing configuration and system values 
 
+printenv        configured enviroment variables
+
+echo $HOME
+echo $PATH      paths of the binaries that the system executes
+
+-Modify variables
+code .bashrc            Modify bash 
+code .zshrc             Modify zsh 
+PATH=$PATH:/home/neomatrix/bin      add to current path
