@@ -56,7 +56,7 @@ tree -L             display directories "-L" (levels) if doesn't exists tree:
                     sudo apt-get install tree
                     sudo apt-get update
 mkdir               dir1 dir2 etc 
-cp file nfile       copy directory and name it ndir
+cp file nfile       copy file and name it nfile
 
 ----MOVE FILES AND DIRECTORIES
 mv file ..          move the file to the previous directory
@@ -75,7 +75,7 @@ rm -rf dir1         forcibly remove (dangerous way)
 ----EXPLORE FILES
 head myfile         shows 10 first lines
 head myfile -n 15   shows the 'n' number of lines     
-less myfile         allows more file browsing features, to exit press q 'q'
+less myfile         allows more file browsing features, to exit press 'q'
 to open a file in linux: nautilus myfile
 In wsl to open a file: wslview myfile or wslview myDir in directory case
 
@@ -144,7 +144,7 @@ g group
 o others 
 a all 
 
-CHANGE PERMISSIONS
+----CHANGE PERMISSIONS
 chmod           change file permissions
 
 example:
@@ -169,7 +169,7 @@ CHANGE PASSWORD
 passwd 
 
 
-ENVIROMENT VARIABLES 
+----ENVIROMENT VARIABLES 
 accessing configuration and system values 
 
 printenv        configured enviroment variables
@@ -181,3 +181,19 @@ echo $PATH      paths of the binaries that the system executes
 code .bashrc            Modify bash 
 code .zshrc             Modify zsh 
 PATH=$PATH:/home/neomatrix/bin      add to current path
+
+
+----SEARCH COMMANDS 
+find the path of our binaries
+
+which       it shows the path of code program
+example: 
+which code
+
+find         It can be used to find files and directories and perform subsequent operations on them
+$ find [where to start searching from]
+ [expression determines what to find] [-options] [what to find]
+example:
+find ./ -name file
+find ./ -name '*.txt'           with quotes in zsh
+find ./ -name '*.txt' | less    with pipe
