@@ -232,3 +232,17 @@ wc  (word count)                    it shows the numbers of lines, characters an
 -w : Match whole word
 -o : Print only the matched parts of a matching line,
  with each such part on a separate output line.
+
+
+----NETWORK UTILITIES
+ifconfig                    it shows network configuration, if not displays anything use ip address or 
+                            install 'sudo apt install net-tools' so that 'ifconfig' can be used 
+netstat -i                  network devices 
+
+ping www.google.com         it shows if a page is active 
+curl www.google.com         it shows the 'html' of a given internet site 
+wget www.google.com         it shows the 'html' of a given internet site and saves it to a file 'index.html' 
+traceroute www.google.com   if doesn't exists in the terminal configuration, install 'sudo apt-get install traceroute'
+
+
+
