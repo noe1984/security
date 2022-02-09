@@ -245,4 +245,23 @@ wget www.google.com         it shows the 'html' of a given internet site and sav
 traceroute www.google.com   if doesn't exists in the terminal configuration, install 'sudo apt-get install traceroute'
 
 
+----COMPRESS FILES 
+tar -cvf ToCompress.tar ToCompress                   
+	c 	:create
+	v 	:verbose : verbosely list files processed
+	f 	:files (regular file)
+
+tar -cvzf ToCompress.tar.gz ToCompress  
+    gz compression
+
+decompress .gz 
+    tar -xzvf ToCompress.tar.gz
+
+
+zip in ubuntu
+apt-get update
+sudo apt-get install zip unzip
+
+
+
 
