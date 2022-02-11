@@ -263,5 +263,16 @@ apt-get update
 sudo apt-get install zip unzip
 
 
+-----PROCESS MANAGMENT
+ps                      Processes that are running in the terminal
+kill (PID)              finish the process by PID (process id)
+pkill (process name)    finish the process by name
+top             it shows the processes that are using more resources
+    h -it shows all the commands that can be used 
+        u filter by user
+
+htop            the same but with more details
+
+
 
 
