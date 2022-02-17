@@ -19,5 +19,29 @@
     -Start 
 
 
+-----EXPLORING FILES
+tail -f     monitor changes in a file in real time
 
+
+-----PERMISSIONS
+chmod u+x file.txt      it assigns execute permission to user in 'file.txt'
+chmod g-0 file.txt      this removes execute permissions to the group in the 'file.txt'
+chmod +x                this assigns execute permissions to all
+
+octal mode 
+r = 4
+w = 2
+x = 1
+- = 0
+
+-rw-r--r-- 1 neomatrix neomatrix   0 Feb 17 01:02 file.txt
+chmod 644 file.txt
+
+change owner
+    -rw-r--r-- 1 neomatrix neomatrix   0 Feb 17 01:02 file.txt
+sudo chown  root:root file.txt
+    -rw-r--r-- 1 root      root        0 Feb 17 01:02 file.txt
+
+ex for dierectories:
+sudo chown whales:aquatic /TestUnix 
 
