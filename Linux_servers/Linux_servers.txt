@@ -1,0 +1,23 @@
+------------LINUX_SERVERS------------
+
+-----INSTALLATION OF LINUX SERVER INSIDE A VIRTUAL MACHINE
+----HOW TO INSTALL UBUNTU SERVER
+-Download https://www.virtualbox.org/
+    -VDI VirtualBox Disk Image
+    -Dinamically allocated
+    -
+-Download Ubuntu Server ISO https://ubuntu.com/download/server
+-In virtualbox go to configuration
+    -Storage
+        Click on the empty cd
+        Optical drive: Select virtual optical Disk and click 'ok'
+    -Network 
+        Attached to: Bridget adapter
+        Adapeter type: pcnet-fast III(optional)
+        Promiscuous modee: Allow all 
+        Cable conected: selected
+    -Start 
+
+
+
+
