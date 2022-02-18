@@ -1,0 +1,41 @@
+---------REDES------------
+
+----BINARY NUMBERS
+2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0	
+128	64	32	16	8	4	2	1	
+
+----NETWORK MASK
+indicates how many machines a network can have
+
+2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0	Resultado
+128	64	32	16	8	4	2	1
+
+0	0	0	0	0	0	0	0	0
+1	0	0	0	0	0	0	0	128
+1	1	0	0	0	0	0	0	192
+1	1	1	0	0	0	0	0	224
+1	1	1	1	0	0	0	0	240
+1	1	1	1	1	0	0	0	248
+1	1	1	1	1	1	0	0	252
+1	1	1	1	1	1	1	0	254
+1	1	1	1	1	1	1	1	255
+
+example
+                255								240								0								0							
+1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+the portion in ones is the part that tells us what the network identifier is
+the portion in zeros is the part that tells us what is the number of hosts
+
+calculation of the number of machines
+    2^n -2
+    2(20) - 2 = 1,048,574
+
+    2 is subtracted because the first is the network 'id' and the second is 'broadcast' and it is forbidden to use it on hosts
+
+
+vice versa if I need 60 hosts
+    the nearest power of 2 above is, 2^6 -2 = 60
+    255.255.255.192 (six binary zeros) 
+
+            255								    255								    255								    0							
+1	1	1	1	1	1	1	1	    1	1	1	1	1	1	1	1	    1	1	1	1	1	1	1	1       1	1	0	0	0	0	0	0	    
