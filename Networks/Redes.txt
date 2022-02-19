@@ -1,4 +1,4 @@
----------REDES------------
+---------NETWORKS------------
 
 ----BINARY NUMBERS
 2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0	
@@ -7,8 +7,9 @@
 ----NETWORK MASK
 indicates how many machines a network can have
 
-2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0	Resultado
+2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0	
 128	64	32	16	8	4	2	1
+1   1   1   1   1   1   1   1 = 255
 
 0	0	0	0	0	0	0	0	0
 1	0	0	0	0	0	0	0	128
@@ -39,3 +40,30 @@ vice versa if I need 60 hosts
 
             255								    255								    255								    0							
 1	1	1	1	1	1	1	1	    1	1	1	1	1	1	1	1	    1	1	1	1	1	1	1	1       1	1	0	0	0	0	0	0	    
+
+
+
+-----ADDRESS TYPES 
+
+Class A: First bit always at 0
+Default mask 255.0.0.0
+Range 1.0.0.0 - 126.0.0.0
+0 and 127 would be broadcast and network  address
+24 binary positions for host
+2^24 -2
+
+Class B: First bit always at 1, second always at 0
+Default mask 255.255.0.0
+Range 128.0.0.0 - 191.255.0.0
+16 binary positions for host
+2^16 -2
+
+Class C: First bit always at 1, second always at 1 and third always at 0
+Default mask 255.255.255.0
+Range 192.0.0.0 - 223.255.255.0
+8 binary positions for host
+2^8 -2
+
+Class D: It is used for multicast so it has no mask.
+Classes beyond D are not used in addressing.
+Range 224.0.0.0 - 239.0.0.0

@@ -1,13 +1,12 @@
 ------------LINUX_SERVERS------------
 
------INSTALLATION OF LINUX SERVER INSIDE A VIRTUAL MACHINE
-----HOW TO INSTALL UBUNTU SERVER
--Download https://www.virtualbox.org/
+-----INSTALLATION OF LINUX SERVER INSIDE A VIRTUAL MACHINE, HOW TO INSTALL UBUNTU SERVER
+Download https://www.virtualbox.org/
     -VDI VirtualBox Disk Image
     -Dinamically allocated
     -
--Download Ubuntu Server ISO https://ubuntu.com/download/server
--In virtualbox go to configuration
+Download Ubuntu Server ISO https://ubuntu.com/download/server
+In virtualbox go to configuration
     -Storage
         Click on the empty cd
         Optical drive: Select virtual optical Disk and click 'ok'
@@ -45,3 +44,15 @@ sudo chown  root:root file.txt
 ex for dierectories:
 sudo chown whales:aquatic /TestUnix 
 
+
+-----VIRTUAL TERMINALS 
+-We can have up to 6 open terminals tty1 - tty6
+ctrl + alt + fn     move between terminals. 
+chvt + terminal number 
+
+w                   it shows how many users are in my OS
+tty                 this indicates the number of the terminal I am in.
+ps -ft tty          list processes
+kill + PID          this finish the process 
+
+-----MANAGMENT AND MONITORING OF PROCESSES AND SYSTEM RESOURCES
