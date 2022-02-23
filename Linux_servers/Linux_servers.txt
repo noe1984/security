@@ -51,8 +51,24 @@ ctrl + alt + fn     move between terminals.
 chvt + terminal number 
 
 w                   it shows how many users are in my OS
-tty                 this indicates the number of the terminal I am in.
+tty                 this indicates the number of the terminal i am in.
 ps -ft tty          list processes
 kill + PID          this finish the process 
 
 -----MANAGMENT AND MONITORING OF PROCESSES AND SYSTEM RESOURCES
+ps aux                      it shows the processes running on the system 
+ps aux | grep neomatrix     showing the processes of a specific user 
+ctr z                       send a process to the background
+jobs                        view background processes
+fg                          bring in background processes
+
+start a process but without losing the console
+vi script.sh
+#!/bin/bash
+echo "hi"
+:wq
+add execution permission
+
+./script.sh &               creates a specific background process (this allows you to continue using the console)
+nohup ./script.sh           this creates an output where I can see the actions the process is doing
+
