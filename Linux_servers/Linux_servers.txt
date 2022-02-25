@@ -55,7 +55,7 @@ tty                 this indicates the number of the terminal i am in.
 ps -ft tty          list processes
 kill + PID          this finish the process 
 
------MANAGMENT AND MONITORING OF PROCESSES AND SYSTEM RESOURCES
+-----MANAGMENT AND MONITORING OF PROCESSES
 ps aux                      it shows the processes running on the system 
 ps aux | grep neomatrix     showing the processes of a specific user 
 ctr z                       send a process to the background
@@ -72,3 +72,13 @@ add execution permission
 ./script.sh &               creates a specific background process (this allows you to continue using the console)
 nohup ./script.sh           this creates an output where I can see the actions the process is doing
 
+
+-----MONITORING SYSTEM RESOURCES 
+top             specific information about OS 
+    cat /proc/cpuinfo | grep -i "Processor"
+
+free -h         it shows the memory information 
+
+du  -hcs        hard drive state
+example
+du -hsc /home/neomatrix
