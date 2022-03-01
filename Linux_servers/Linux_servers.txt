@@ -70,15 +70,40 @@ echo "hi"
 add execution permission
 
 ./script.sh &               creates a specific background process (this allows you to continue using the console)
-nohup ./script.sh           this creates an output where I can see the actions the process is doing
+nohup ./script.sh           this creates an output where i can see the actions the process is doing
 
 
 -----MONITORING SYSTEM RESOURCES 
-top             specific information about OS 
-    cat /proc/cpuinfo | grep -i "Processor"
+top             specific information about OS processes 
+cat /proc/cpuinfo | grep -i "Processor"     how many processors are in the system
 
 free -h         it shows the memory information 
 
 du  -hcs        hard drive state
 example
 du -hsc /home/neomatrix
+du -hsc /
+
+sudo ps auxf | sort -nr -k 3 | head -5      processes consuming more CPU 
+sudo ps auxf | sort -nr -k 4 | head -5      processes consuming more RAM 
+
+htop        package for a more organized managing of processes 
+
+
+------NETWORK PARAMETERS 
+ifconfig                its shows the network cards 
+ip a                    this means ip address show 
+
+ip -4 a 
+ip -6 a                 specific type of addressing 
+
+hostname                how i identify this host on the network 
+route -n                default gateway
+
+nslookup google.com     ip of specific domain  
+curl                    check connectivity to URLs 
+wget                    retrieve content and files from various web servers, also allows downloading packages 
+
+
+-----PACKAGE MANAGMENT ACCORDING TO THE 'DISTRO'
+
