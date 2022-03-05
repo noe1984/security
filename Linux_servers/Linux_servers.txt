@@ -100,10 +100,44 @@ ip -6 a                 specific type of addressing
 hostname                how i identify this host on the network 
 route -n                default gateway
 
-nslookup google.com     ip of specific domain  
+nslookup google.com     ip of a specific domain  
 curl                    check connectivity to URLs 
 wget                    retrieve content and files from various web servers, also allows downloading packages 
 
 
 -----PACKAGE MANAGMENT ACCORDING TO THE 'DISTRO'
+
+>>Debian / Ubuntu
+sudo apt-get update         updating
+sudo apt update             downlading *another way is by sudo apt dist-upgrade             
+sudo apt-get upgrade  
+
+sudo apt search "mysql$"    search for packages 
+    sudo apt search "mysql-server"
+    sudo snap search aws-cli
+
+dpkg -l                     List all debs installed on the machine.
+dpkg -i package.deb         Perform a package installation.
+dpkg -r package.deb         Remove a package from the system.
+dpkg-reconfigure tzdata     reconfigures this package
+
+apt install package         apt repositories another way to install.
+
+
+>>Red Hat / CentOS / Fedora
+.rpm Red Hat Package Manager.
+RPM database, located in var/lib/rpm
+rpm -qa         List all rpms installed on the machine. (query all)
+    rpm -qi bash
+    rpm -qc bash
+rpm -i package.rpm          Perform a package installation. (install)
+rpm -e package.rpm          Remove a package from the system. (erase)
+
+sudo yum update                 updating 
+sudo yum install net-tools      installing a package 
+rpm -e curl                     remove a package
+
+
+
+
 
