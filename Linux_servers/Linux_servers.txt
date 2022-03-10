@@ -104,7 +104,7 @@ nslookup google.com     ip of a specific domain
 curl                    check connectivity to URLs 
 wget                    retrieve content and files from various web servers, also allows downloading packages 
 
-
+*sudo apt-get install net-tools
 -----PACKAGE MANAGMENT ACCORDING TO THE 'DISTRO'
 
 >>Debian / Ubuntu
@@ -136,6 +136,53 @@ rpm -e package.rpm          Remove a package from the system. (erase)
 sudo yum update                 updating 
 sudo yum install net-tools      installing a package 
 rpm -e curl                     remove a package
+
+
+-----NAGIOS 
+Installation of some tools to manage a MySQL database (remember that we will install and work with MySQL in an upcoming class):
+    sudo apt install build-essential libgd-dev openssl libssl-dev unzip apache2 php gcc libdbi-perl libdbd-mysql-perl
+
+Nagios installation
+    wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.4.tar.gz -O nagioscore.tar.gz
+Unzip and unpack archives with tar:
+    unzip:  tar xvzf nagioscore.tar.gz
+    go to: the created folder nagios-4.4.4
+configuration
+    sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+execute this 
+    sudo make all
+    sudo make install 
+        *if error:
+        sudo make install-groups-users
+        sudo usermod -a -G nagios www-data
+continue
+    sudo make install-init
+    sudo make install-commandmode
+    sudo make install-config
+    sudo make install-web-conf
+verify installation 
+    curl localhost | grep apache 
+    sudo systemctl status nagios  
+Activate nagios
+    sudo systemctl start nagios 
+
+-Nagios Plugins
+cd 
+VER="2.3.3"
+curl -SL https://github.com/nagios-plugins/nagios-plugins/releases/download/release-$VER/nagios-plugins-$VER.tar.gz | tar -xzf -
+
+In the main directory you will have an additional directory – nagios-plugins-2.3.3
+navigate to the directory where the plugins are located and
+
+compile the Nagios plugins with the following commands:
+    ./configure --with-nagios-user=nagios --with-nagios-group=nagios
+    sudo make install
+start the Nagios service
+    sudo systemctl enable --now nagios
+    sudo systemctl status nagios
+access Nagios
+    Open your web browser and go to the displayed URL.
+    http://server-IP/nagios
 
 
 
