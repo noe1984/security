@@ -185,6 +185,27 @@ access Nagios
     http://server-IP/nagios
 
 
+-----USERS 
+id                  Real and effective User ID (UID) and Group ID (GID)
+cat /etc/passwd     OS Users 
+cat /etc/shadow     User passwords 
+sudo passwd root    change root password 
+
+
+
+----CREATING AND MANAGING USERS ACCOUNTS 
+sudo useradd username   Create a user without immediately assigning a password or asking for more information. We must finish configuring this account by hand later.
+sudo adduser username   Create a new user with a password and some other information. It will also create a new folder in the /home/ folder.
+
+sudo userdel username        remove user accounts.
+usermod                 modify the information of some account.
+
+Never manually modify the /etc/passwd file. 
+
+cat /urs/sbin/adduser   to see the content of adduser
+
+
+
 
 
 
