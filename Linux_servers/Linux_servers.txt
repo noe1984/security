@@ -205,6 +205,27 @@ Never manually modify the /etc/passwd file.
 cat /urs/sbin/adduser   to see the content of adduser
 
 
+-----SWICHING USERS 
+1 Creating an user
+    sudo adduser nodejs
+2 switch user 
+    sudo su - nodejs 
+3 Trying to update
+    sudo apt update  *nodejs is not in the sudoers file.
+4 solution
+    exit 
+    groups nodejs
+ -  sudo gpasswd -a nodejs sudo
+try the spteps 3 and 3 again
+
+-remove an user from a group in this case 'sudo'
+    sudo gpasswd -d nodejs sudo
+    or
+    sudo usermod -aG sudo nodejs   *now in groups = nodejs sudo
+-see what permissions this user has
+    sudo -l 
+
+
 
 
 
