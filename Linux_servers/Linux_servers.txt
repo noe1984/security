@@ -1,4 +1,4 @@
-------------LINUX_SERVERS------------
+------------UBUNTU-SERVER------------
 
 -----INSTALLATION OF LINUX SERVER INSIDE A VIRTUAL MACHINE, HOW TO INSTALL UBUNTU SERVER
 Download https://www.virtualbox.org/
@@ -215,8 +215,8 @@ cat /urs/sbin/adduser   to see the content of adduser
 4 solution
     exit 
     groups nodejs
- -  sudo gpasswd -a nodejs sudo
-try the spteps 3 and 3 again
+    sudo gpasswd -a nodejs sudo
+try the steps 2 and 3 again
 
 -remove an user from a group in this case 'sudo'
     sudo gpasswd -d nodejs sudo
@@ -224,6 +224,57 @@ try the spteps 3 and 3 again
     sudo usermod -aG sudo nodejs   *now in groups = nodejs sudo
 -see what permissions this user has
     sudo -l 
+
+
+-----PAM (Pluggable Authentication Modules)
+*CentOS
+ls /etc/pam.d
+*ls /lib64/security
+ls /etc/security
+
+sudo apt install libpwquality-tools
+pswcore         check the security of a password 
+
+-Limit processes
+ulimit -a       set limits that only apply to the current session
+ulimit -u 10    reduce the number of processes to 10
+
+create a script with vim   vm script.sh
+    #!/bin/bash
+    echo "hi there"
+    $0
+
+add execution permissions 
+    chmod +x script.sh
+execute
+    ./script.sh 
+
+-Limit hours
+vi /etc/security/time.conf  
+in the event that it does not allow the file to be modified:        
+in console as root user
+    gpasswd -a noe wheel        this adds to the wheel group(requires console reboot)
+insert this example
+    *;*;noe | anotherUser;wk0800-1800
+
+
+-----SSH AUTHENTICATION 
+sudo vi /etc/ssh/ssh_config         view ssh configuration 
+ssh-keygen                          key generator 2048 bits default
+ls .ssh
+
+connect to a server
+    ssh-copy-id -i directorio_de_llave/id_rsa.pub nombre_usuario@direccion_ip_del_servidor
+execute
+    nombre_usuario@direccion_ip_del_servidor
+finish and start ssh
+    sudo systemctl stop ssh
+    sudo systemctl start ssh
+
+
+
+
+
 
 
 
