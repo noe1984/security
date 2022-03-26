@@ -271,9 +271,47 @@ finish and start ssh
     sudo systemctl stop ssh
     sudo systemctl start ssh
 
+ssh -v ServerName       i shows the actions between server and client
 
 
 
+-----DNS WITH BIND 
+-Installing bind
+    sudo apt install aptitude
+    aptitude search "?name(^bind)"
+    sudo apt install -y bind9
+    sudo netstat -ltnp
+
+dig www.platzi.com @127.0.0.1       consulting a dns 
+    There we will find an output, we are interested in the response 
+    part and the runtime part to validate that the response was given from localhost.
+dpkg -L bind9
+    verify everything that is included within the package such as
+    manual configuration files among others
+
+    The main configuration file will be /etc/bind/named.conf, we also have the /etc/bind/rndc.key file 
+    in which you can configure the key that can be used to gain access to the domain name.
+
+named -v or     version of bind in two ways
+
+
+-----START, STOP AND RELOAD SERVICES 
+sudo systemctl status apache2                   verify if apache is running 
+sudo systemctl start apache2                    init a service
+sudo systemctl stop apache2                     finish a service 
+
+sudo systemctl list-units -t service --all      list services
+
+-admin logs
+cd /var/log ls      logs
+sudo journalctl -fu apache2     view apahce logs
+sudo journalctl --disk-usage    disk space
+sudo journalctl --list-boots    list of last boots
+sudo journalctl -p (critic, info, warning, error)
+sudo journalctl -o json
+
+
+-----NGINX AND APACHE 
 
 
 
