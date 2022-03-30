@@ -304,7 +304,7 @@ sudo systemctl list-units -t service --all      list services
 
 -admin logs
 cd /var/log ls      logs
-sudo journalctl -fu apache2     view apahce logs
+sudo journalctl -fu apache2     view apache logs
 sudo journalctl --disk-usage    disk space
 sudo journalctl --list-boots    list of last boots
 sudo journalctl -p (critic, info, warning, error)
@@ -312,10 +312,47 @@ sudo journalctl -o json
 
 
 -----NGINX AND APACHE 
+NGINX and Apache on Ubuntu server
+
+Install Apache
+    sudo apt install apache2
+
+Install Nginx
+    sudo apt install nginx nginx-extras
+
+To verify if the services are running, the following commands must be executed:
+    systemctl status apache2
+    systemctl status nginx
+
+Open the Apache configuration file, and change the port to 8080
+    sudo nano /etc/apache2/ports.conf
+
+Open the following configuration file and change the port to 8080
+    sudo nano /etc/apache2/sites-available/000-default.conf
+
+Restart Apache and Start Nginx. check later
+    sudo systemctl restart apache2
+    sudo systemctl status apache2
+    sudo systemctl start nginx
+    sudo systemctl status nginx
+
+Add the line proxy_pass http://127.0.0.1:8080 in the location of the following file
+    sudo nano /etc/nginx/sites-available/default
+
+commands
+    sudo netstat -tulpn         Validate ports that have an active process
 
 
+If for some reason the Apache server is not on the same machine, we must change the respective IP address and port.
+Apache has a command to activate sites that is a2ensite that receives as a parameter the configuration file defined in /etc/apache2/sites-available. 
+NGINX does not have this command, which is why there is a soft link, that is, 
+when we create a configuration file in /etc/nginx/sites-available we must execute sudo ln -s /etc/nginx/sites-available/ nginx_config /etc/nginx/sites-enabled/
 
+Apache also allows me to disable sites and add modules
+sudo a2dissite 000-default
+sudo a2enmod rewrite headers env dir mime
 
+If we want to enable letsecrypt in NGINX, we need to add a line in the .htaccess to the path /var/www/html/host_name/.htaccess. The line is SetEnvIf X-Forwarded-Proto https
 
 
 
