@@ -47,7 +47,7 @@ sudo chown whales:aquatic /TestUnix
 
 -----VIRTUAL TERMINALS 
 -We can have up to 6 open terminals tty1 - tty6
-ctrl + alt + fn     move between terminals. 
+ctrl + alt + f(n)     move between terminals. 
 chvt + terminal number 
 
 w                   it shows how many users are in my OS
@@ -355,7 +355,7 @@ sudo a2enmod rewrite headers env dir mime
 If we want to enable letsecrypt in NGINX, we need to add a line in the .htaccess to the path /var/www/html/host_name/.htaccess. The line is SetEnvIf X-Forwarded-Proto https
 
 
----MORE DETAILS ACOUT NGINX 
+---NGINX INSTALLATION
 sudo apt search nginx
 sudo apt search "nginx$"
 sudo apt update && sudo apt install nginx
@@ -378,3 +378,50 @@ curl localhost
 curl -I localhost
 cd /etc/nginx/sites-enabled/
 ll
+
+
+----NGINX AMPLIFY
+Installation process
+
+Install Python 2.7
+sudo apt install python2.7
+
+Move to the Nginx folder
+cd /etc/nginx
+
+Modify the conf.d file as follows
+sudo cat > conf.d/stub_status.conf
+server {
+    listen 127.0.0.1:80;
+    server_name 127.0.0.1;
+    location /nginx_status {
+    stub_status on;
+    allow 127.0.0.1;
+    deny all;
+    }
+}
+
+Kill the Nginx process
+sudo kill -HUP `cat /var/run/nginx.pid`
+
+Reboot and enable Nginx
+    sudo systemctl restart nginx && systemctl enable nginx
+
+Log in to the Nginx Amplify website and follow the installation instructions: https://amplify.nginx.com and install in home:
+    curl -L -O https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh
+                                        or
+    wget https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh
+
+give execution permission
+    ls
+    chmod +x install.sh
+
+ Run the following command as root to install the Amplify Agent package.
+sudo API_KEY='ca6d2c7410be79fc9d23e83861530d3a' sh ./install.sh
+
+Start the Nginx Amplify service
+    service amplify-agent start
+
+Restart Nginx
+    sudo systemctl restart nginx
+
