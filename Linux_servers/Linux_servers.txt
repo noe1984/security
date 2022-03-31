@@ -355,4 +355,26 @@ sudo a2enmod rewrite headers env dir mime
 If we want to enable letsecrypt in NGINX, we need to add a line in the .htaccess to the path /var/www/html/host_name/.htaccess. The line is SetEnvIf X-Forwarded-Proto https
 
 
+---MORE DETAILS ACOUT NGINX 
+sudo apt search nginx
+sudo apt search "nginx$"
+sudo apt update && sudo apt install nginx
+sudo systemctl status apache2
+sudo systemctl status nginx
+netstat -tulpn
 
+sudo systemctl stop apache2
+sudo systemctl status apache2
+netstat -tulpn
+
+cd /etc/nginx
+ls
+vi ngnix.conf
+cd sites-available
+ls
+less default
+cd /var/www/html
+curl localhost
+curl -I localhost
+cd /etc/nginx/sites-enabled/
+ll
