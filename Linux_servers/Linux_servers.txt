@@ -425,3 +425,80 @@ Start the Nginx Amplify service
 Restart Nginx
     sudo systemctl restart nginx
 
+
+-----LOGS 
+find /etc/ -type f                      find recieve a path 
+
+find /var/log/ -name "*.log" type f     find 'logs' of type file
+find /var/log/ ! -name "*.log" type f   find all files that do not have a '.log' extension
+find /var/log/ -iname "*.LOG" type f    find case-insensitive
+
+sudo find /etc/ -mtime 10               find files modified in the last 10 minutes
+find /etc/ -mtime 10 2> /dev/null
+
+grep "server" /etc/nginx/sites-available/default    find a specific word in a file
+
+awk '{print $1}' /var/log/nginx/access.log                                  view postition 1 'ips'in this log file  
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr 
+awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -nr      view errors
+
+Nmon
+Munin
+Grafana
+
+
+-----BASH 
+vi file1.sh 
+    #!/bin/bash 
+    #this is a comment 
+    WELCOME = "hi platzi"
+    echo $WELCOME
+    ls
+
+ls -l 
+chmod u+x file1.sh
+ls -l 
+execute script
+    ./file1.sh
+
+
+-----VARIABLES AND THEIR EXECUTION ENVIRONMENT
+env                 view system variables
+echo $PATH          binaries 
+    cd /usr/local/sbin/
+    cd /ur/bin/
+
+cd 
+-use those variables in the 'scripts'
+    vi hd_script.sh
+        #!/bin/bash
+        #check hard disk space in the operating system
+        #Developed by noe
+
+        CWD=$(pwd)
+        DATE=$(date +"%F%T")
+        echo $DATE
+
+        df -h | grep /dev > disk_use_"$DATE".txt
+        df -h | grep /dev/mapper/ubuntu--vg-root >> disk_use_"$DATE".txt
+
+        echo "a file has been generated at path $CWD" 
+ls -l 
+./hd_script.sh
+ls -ltr 
+cd disk_use_2022-04-1015:14:28.txt
+
+
+-----AUTOMATION - backup of a MySQL database
+vi copy.sh
+    #!/bin/bash
+    #Shell script to get a copy of a MySQL database 
+    #Developed by noe
+
+    PATH=/usr/local/sbin:/usr/local/bin:/bin:/usr/sbin:/usr/bin
+    set -e 
+    readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    readonly SCRIPT_NAME="$(basename "$0")"
+
+
