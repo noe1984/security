@@ -554,3 +554,57 @@ function make_backup {
 	echo "$($duration / 60) minutes"
 	aws s3 cp $BAK "s3://$BUCKET" --recursive
 }
+
+
+-----CRONTAB 
+CRON
+    regular background process manager that checks if there are any tasks to run.
+CRONTAB
+    configuration file of tasks to execute
+
+crontab -e      edit crontab file 
+crontab -l      list tasks configured
+
+
+minute(0-59)
+hour(0-23) 
+day_of_month(1-31) 
+month(1-12|jan,feb,mar...) 
+day_of_week(0-6|sun,mon,tue...) 
+interpreter(ej:"/usr/bin/bash") command(ej:"pwd > /home/plazi/pwd.txt")
+
+Our cron would be as follows
+    15 3 * * * /usr/bin/bash /home/platzi/copia.sh
+
+We could also do an automatic scan of the machine every day at 05:00 PM and 
+generate a report of the security status of the machine with lynis
+    * 17 * * * /usr/sbin/lynis --quick > /home/edison/Documentos/Platzi/lynis_files/$(date +"\%F") 2>/dev/null
+
+We check the folder and find the output
+This will work fine as long as the machine is on, if not we could check out anacron
+
+
+-----VULNERABILITY MANAGMENT 
+There are some commands that we should not use, since they are vulnerable by default, 
+such as telnet or r* commands. 
+Instead of these commands we can use secure protocols like SSH.
+
+Bad practices
+    Do not disable the root user
+    Perform a login with username and password (without ssh)
+    Do not validate the software version used
+    Use r* or telnet commands
+    Do not identify the services and open ports in the OS
+    Not managing user permissions correctly
+
+Good practices
+    Check for security updates and install them.
+    On CentOS:
+        yum check-update --security
+        yum update security
+    On Ubuntu:
+        apt update
+        apt upgrade
+
+
+-----
