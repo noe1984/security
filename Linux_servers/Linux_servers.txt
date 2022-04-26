@@ -592,7 +592,7 @@ Instead of these commands we can use secure protocols like SSH.
 Bad practices
     Do not disable the root user
     Perform a login with username and password (without ssh)
-    Do not validate the software version used
+    Do not validate software version used
     Use r* or telnet commands
     Do not identify the services and open ports in the OS
     Not managing user permissions correctly
@@ -607,4 +607,45 @@ Good practices
         apt upgrade
 
 
------
+-----FIREWALL ANT ITS RULES
+check firewall status
+    sudo ufw status
+enable port 
+    sudo ufw allow 22 comment 'ssh'
+    sudo ufw enable 
+view and change rules 
+    sudo ufw status numbered
+    sudo ufw delete (number 2 in this case)
+restrict the service only to a certain ip (new rule)
+    sudo ufw allow from 192.168.10.127 proto tcp to any port 22 comment 'allow ssh ip'
+delete rules
+    sudo ufw reset 
+
+*uniq ports that should be open 
+    80  http 
+    443 https 
+
+To ban a specific IP:
+    sudo ufw insert 1 deny from {IP} comment 'Attacker ip blocked'
+
+To ban a network:
+    sudo ufw insert 1 deny from {IP}/{range} comment 'Attacker ip blocked'
+
+
+
+------SCANNING WITH NMPA AND NIKTO FROM KALI LINUX
+nmap [Scan Type(s)] [Options] {target specification}
+
+-sV Service/version info (Information about open ports).
+-sC Allows you to use the script engine.
+-O Enables OS detection.
+-p- Scan all ports.
+-oA Send the output to a file
+
+Server IP scan
+    nmap -sV -sC -O -oA <filename> <server IP>
+Scan for additional vulnerability information
+    nikto -h <Server IP> -o file.txt
+
+
+------
