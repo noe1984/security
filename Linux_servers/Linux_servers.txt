@@ -37,13 +37,13 @@ x = 1
 chmod 644 file.txt
 
 change owner
-    -rw-r--r-- 1 neomatrix neomatrix   0 Feb 17 01:02 file.txt
-sudo chown  root:root file.txt
-    -rw-r--r-- 1 root      root        0 Feb 17 01:02 file.txt
+-rw-r--r-- 1 neomatrix neomatrix   0 Feb 17 01:02 file.txt
+    sudo chown  root:root file.txt
+-rw-r--r-- 1 root      root        0 Feb 17 01:02 file.txt
 
-ex for dierectories:
+ex for directories:
 sudo chown whales:aquatic /TestUnix 
-
+            user   group
 
 -----VIRTUAL TERMINALS 
 -We can have up to 6 open terminals tty1 - tty6
@@ -111,17 +111,22 @@ wget                    retrieve content and files from various web servers, als
 sudo apt-get update         updating
 sudo apt update             downlading *another way is by sudo apt dist-upgrade             
 sudo apt-get upgrade  
+*sudo apt-dist upgrade      requires reboot 
 
-sudo apt search "mysql$"    search for packages 
-    sudo apt search "mysql-server"
+search for specific packages
+    sudo apt search "mysql$"   
+    sudo apt search "mysql-server$"
+
     sudo snap search aws-cli
+    sudo snap info aws-cli
 
-dpkg -l                     List all debs installed on the machine.
-dpkg -i package.deb         Perform a package installation.
-dpkg -r package.deb         Remove a package from the system.
-dpkg-reconfigure tzdata     reconfigures this package
+packages installed on the system
+    dpkg -l                     List all debs installed on the machine.
+    dpkg -i package.deb         Perform a package installation.
+    dpkg -r package.deb         Remove a package from the system.
+    dpkg-reconfigure tzdata     reconfigures this package
 
-apt install package         apt repositories another way to install.
+apt install package         apt repositories, another way to install.
 
 
 >>Red Hat / CentOS / Fedora
@@ -221,7 +226,7 @@ try the steps 2 and 3 again
 -remove an user from a group in this case 'sudo'
     sudo gpasswd -d nodejs sudo
     or
-    sudo usermod -aG sudo nodejs   *now in groups = nodejs sudo
+    sudo usermod -aG sudo nodejs   *sudo = group, nodejs = user
 -see what permissions this user has
     sudo -l 
 
@@ -235,7 +240,10 @@ ls /etc/security
 sudo apt install libpwquality-tools
 pswcore         check the security of a password 
 
--Limit processes
+access pwsocore in ubuntu 
+    libpwquality-tools
+    
+-Limit processes *also available in ubuntu
 ulimit -a       set limits that only apply to the current session
 ulimit -u 10    reduce the number of processes to 10
 
@@ -253,7 +261,7 @@ execute
 vi /etc/security/time.conf  
 in the event that it does not allow the file to be modified:        
 in console as root user
-    gpasswd -a noe wheel        this adds to the wheel group(requires console reboot)
+    gpasswd -a noe wheel        in centOS this adds to the wheel group(requires console reboot)
 insert this example
     *;*;noe | anotherUser;wk0800-1800
 
@@ -271,7 +279,7 @@ finish and start ssh
     sudo systemctl stop ssh
     sudo systemctl start ssh
 
-ssh -v ServerName       i shows the actions between server and client
+ssh -v ServerName       it shows the actions between server and client
 
 
 
@@ -358,26 +366,32 @@ If we want to enable letsecrypt in NGINX, we need to add a line in the .htaccess
 ---NGINX INSTALLATION
 sudo apt search nginx
 sudo apt search "nginx$"
-sudo apt update && sudo apt install nginx
-sudo systemctl status apache2
+
+installing nginx
+    sudo apt update && sudo apt install nginx
+    sudo systemctl status apache2
+    sudo systemctl status nginx
+    netstat -tulpn
+
+if port 80 is already taken
+    netstat -tulpn                  tcp udp listening numeric
+    sudo systemctl stop apache2
+    sudo systemctl status apache2
+
+sudo systemctl start nginx 
 sudo systemctl status nginx
-netstat -tulpn
 
-sudo systemctl stop apache2
-sudo systemctl status apache2
-netstat -tulpn
-
-cd /etc/nginx
-ls
-vi ngnix.conf
-cd sites-available
-ls
-less default
-cd /var/www/html
-curl localhost
-curl -I localhost
-cd /etc/nginx/sites-enabled/
-ll
+edit nginx files
+    cd /etc/nginx
+        vi ngnix.conf                   modify access-error logs, compression, processes to launch etc
+    cd sites-available
+        less default                    active services
+        cd /var/www/html
+            curl localhost
+                vi /etc/nginx/sites-available/default   to see the reading order
+            curl -I localhost                           headers of the server that is responding
+    cd /etc/nginx/sites-enabled/                        activated sites
+    ll
 
 
 ----NGINX AMPLIFY
@@ -424,6 +438,95 @@ Start the Nginx Amplify service
 
 Restart Nginx
     sudo systemctl restart nginx
+
+
+
+------MySQL MONITORING WITH NAGIOS
+sudo apt search mysql   or
+sudo apt search "mysql-server$"
+
+sudo apt install mysql-server
+mysql   "access denied for user"
+
+-get mysql password
+    sudo vim /etc/mysql/debian.cnf"
+        copy password
+    mysql -u debian-sys-maint -p        if host is in another machine -h *debian-sys-maint=user
+            enter password 
+    show databases;
+    exit 
+
+-secure installation 
+sudo mysql_secure_installation
+    validate password y 
+    remove anonymous user y
+    remove login remote y
+    remove test database y 
+    reload privilege tables y 
+    all done 
+sudo mysql      now is connected 
+
+-configure nagios 
+sudo systemctl status apache2       check apache
+sudo a2enmod rewrite cgi      
+
+create a nagios user
+    /usr/local/nagios/etc/htpasswd.users nagiosadmin 
+    enter a password
+    sudo systemctl restart apache2
+
+enter nagios in browser
+server ip address:8080/nagios
+
+-nagios Plugins
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz -Or nagios-plugins.tar.gz
+tar xzvf nagios-plugins.tar.gz
+cd nagios-plugins-2.2.1
+    sudo ./configure
+    sudo make all
+    sudo make install
+
+------USERS 
+Debian 1000 >
+id          user id 
+whoami      user 
+
+cat /etc/passwd         all OS user 
+    x  it means that the password is encrypted elsewhere.
+sudo cat /etc/shadow    it shows passwords 
+passwd + user           this allows change passwords 
+
+
+------CREATING AND MANAGING USER ACCOUNTS 
+-create users 
+sudo useradd "someuser"       doesn't ask for password, and doesn't create a home 
+    cat /etc/passwd         verify that user was created
+
+sudo adduser "someuser"       it asks for passwords and create a home 
+
+-delete users 
+    sudo userdel "someuser" 
+
+-modify users 
+    sudo usermod "someuser" 
+
+-switchin user 
+    sudo su - "someuser"                  switch to "someuser" 
+-adding to groups 
+    sudo gpasswd -a "someuser" sudo       add to sudo group 
+-removing from groups
+    sudo gpasswd -d "someuser" sudo 
+    grupos "someuser"                     verify groups 
+sudo -l                                   view permissions 
+
+
+-----PAM  Pluggable Authentication Modules (PAM) 
+CentOS 
+ls /etc/pam.d 
+ls /lib64/security/
+ls /etc/security 
+pswcore                 validate the strength of a password
+
 
 
 -----LOGS 
