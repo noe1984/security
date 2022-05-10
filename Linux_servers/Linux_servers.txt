@@ -190,177 +190,120 @@ access Nagios
     http://server-IP/nagios
 
 
------USERS 
-id                  Real and effective User ID (UID) and Group ID (GID)
-cat /etc/passwd     OS Users 
-cat /etc/shadow     User passwords 
-sudo passwd root    change root password 
+
+------USERS 
+Debian 1000 >
+id          user id 
+whoami      user 
+
+cat /etc/passwd         all OS user 
+    x  it means that the password is encrypted elsewhere.
+sudo cat /etc/shadow    it shows passwords 
+passwd + user           this allows change passwords 
 
 
+------CREATING AND MANAGING USER ACCOUNTS 
+-create users 
+sudo useradd "someuser"       doesn't ask for password, and doesn't create a home 
+    cat /etc/passwd         verify that user was created
 
-----CREATING AND MANAGING USERS ACCOUNTS 
-sudo useradd username   Create a user without immediately assigning a password or asking for more information. We must finish configuring this account by hand later.
-sudo adduser username   Create a new user with a password and some other information. It will also create a new folder in the /home/ folder.
+sudo adduser "someuser"       it asks for passwords and create a home 
 
-sudo userdel username        remove user accounts.
-usermod                 modify the information of some account.
+-delete users 
+    sudo userdel "someuser" 
 
-Never manually modify the /etc/passwd file. 
+-modify users 
+    sudo usermod "someuser" 
 
-cat /urs/sbin/adduser   to see the content of adduser
-
-
------SWICHING USERS 
-1 Creating an user
-    sudo adduser nodejs
-2 switch user 
-    sudo su - nodejs 
-3 Trying to update
-    sudo apt update  *nodejs is not in the sudoers file.
-4 solution
-    exit 
-    groups nodejs
-    sudo gpasswd -a nodejs sudo
-try the steps 2 and 3 again
-
--remove an user from a group in this case 'sudo'
-    sudo gpasswd -d nodejs sudo
-    or
-    sudo usermod -aG sudo nodejs   *sudo = group, nodejs = user
--see what permissions this user has
-    sudo -l 
+-switchin user 
+    sudo su - "someuser"                  switch to "someuser" 
+-adding to groups 
+    sudo gpasswd -a "someuser" sudo       add to sudo group 
+-removing from groups
+    sudo gpasswd -d "someuser" sudo 
+    grupos "someuser"                     verify groups 
+sudo -l                                   view permissions 
 
 
------PAM (Pluggable Authentication Modules)
-*CentOS
-ls /etc/pam.d
-*ls /lib64/security
-ls /etc/security
+-----PAM  Pluggable Authentication Modules (PAM) 
+--CentOS 
+ls /etc/pam.d 
+ls /lib64/security/
+ls /etc/security 
 
-sudo apt install libpwquality-tools
-pswcore         check the security of a password 
-
-access pwsocore in ubuntu 
-    libpwquality-tools
-    
--Limit processes *also available in ubuntu
-ulimit -a       set limits that only apply to the current session
-ulimit -u 10    reduce the number of processes to 10
-
-create a script with vim   vm script.sh
-    #!/bin/bash
-    echo "hi there"
-    $0
-
-add execution permissions 
-    chmod +x script.sh
-execute
-    ./script.sh 
-
--Limit hours
-vi /etc/security/time.conf  
-in the event that it does not allow the file to be modified:        
-in console as root user
-    gpasswd -a noe wheel        in centOS this adds to the wheel group(requires console reboot)
-insert this example
-    *;*;noe | anotherUser;wk0800-1800
+pswcore                     validate the strength of a password
+-number of processes 
+    ulimit -u "n"           limit number of processes
+-time of login 
+    if doesn't have permission
+        gpasswd -a platzi wheel 
+    sudo vi /etc/security/time.cong
+        *;*;someuser|otheruser;wk0800-1800
 
 
------SSH AUTHENTICATION 
-sudo vi /etc/ssh/ssh_config         view ssh configuration 
-ssh-keygen                          key generator 2048 bits default
-ls .ssh
-
-connect to a server
-    ssh-copy-id -i directorio_de_llave/id_rsa.pub nombre_usuario@direccion_ip_del_servidor
-execute
-    nombre_usuario@direccion_ip_del_servidor
-finish and start ssh
+------SSH CLIENT AND SERVER AUTHENTICATION
+sudo /etc/ssh/sshd_config           ssh config 
+ssh-keygen 
+ls .ssh                             view ssh files
+-connect with server
+    ssh-copy-id -i ~/.ssh/id_rsa.pub    server@serverip                  
+-automatic login 
+    ssh server@ipserver 
+-change password login in config 
+    passwordAuthentication "no"
     sudo systemctl stop ssh
     sudo systemctl start ssh
+ssh -v server@serverip                  server-client interaction
 
-ssh -v ServerName       it shows the actions between server and client
+-----BIND DNS CONFIG 
+sudo apt install aptitude
+apt install -y bind9
 
-
-
------DNS WITH BIND 
--Installing bind
-    sudo apt install aptitude
-    aptitude search "?name(^bind)"
-    sudo apt install -y bind9
+We validate the installation with netstat and verify that port 53 is listening
+    program executing service 
     sudo netstat -ltnp
+query example
+    dig www.platzi.com @127.0.0.1
+check what is included in the package
+    dpkg -L bind9
+The main configuration file will be 
+    /etc/bind/named.conf
+in this you can configure the key that can be used to gain access to the domain name
+    /etc/bind/rndc.key
+We can see the version of bind in two ways named -v or an extended version with named -V
 
-dig www.platzi.com @127.0.0.1       consulting a dns 
-    There we will find an output, we are interested in the response 
-    part and the runtime part to validate that the response was given from localhost.
-dpkg -L bind9
-    verify everything that is included within the package such as
-    manual configuration files among others
-
-    The main configuration file will be /etc/bind/named.conf, we also have the /etc/bind/rndc.key file 
-    in which you can configure the key that can be used to gain access to the domain name.
-
-named -v or     version of bind in two ways
-
-
------START, STOP AND RELOAD SERVICES 
-sudo systemctl status apache2                   verify if apache is running 
-sudo systemctl start apache2                    init a service
-sudo systemctl stop apache2                     finish a service 
-
-sudo systemctl list-units -t service --all      list services
-
--admin logs
-cd /var/log ls      logs
-sudo journalctl -fu apache2     view apache logs
-sudo journalctl --disk-usage    disk space
-sudo journalctl --list-boots    list of last boots
-sudo journalctl -p (critic, info, warning, error)
-sudo journalctl -o json
+If you want to acquire your DNS, you have several options:
+    namecheap
+    Hover
+    Route 53
+As a client you have several options to configure your DNS, which will directly influence your speed, security or reputation. 
+For that I will give you some options, the order does not mean anything:
+    opendns
+    google-dns
+    Neustar UltraDNS
+    cloudflare
+    ATV
+    PublicDNS
+    Yandex-DNS
+There is a tool that allows us to select which DNS we should use based on our location and our searches, it is called namebench.
 
 
------NGINX AND APACHE 
-NGINX and Apache on Ubuntu server
 
-Install Apache
-    sudo apt install apache2
+------START, STOP AND RELOAD SERVICES 
+sudo systemctl status apache2       service status 
+sudo systemctl enable apache2       enable service 
 
-Install Nginx
-    sudo apt install nginx nginx-extras
+sudo systemctl stop apache2 
+sudo systemctl start apache2
 
-To verify if the services are running, the following commands must be executed:
-    systemctl status apache2
-    systemctl status nginx
+sudo systemctl list-unit -t service --all       list of services
+cd /var/log/
+    sudo journalctl -fu apache2     service details like errors
+    sudo journalctl --disk-usage 
+    sudo journalctl --list-boots 
+    sudo journalctl -p (info, warning, crit ) 
+    sudo journalctl -o json
 
-Open the Apache configuration file, and change the port to 8080
-    sudo nano /etc/apache2/ports.conf
-
-Open the following configuration file and change the port to 8080
-    sudo nano /etc/apache2/sites-available/000-default.conf
-
-Restart Apache and Start Nginx. check later
-    sudo systemctl restart apache2
-    sudo systemctl status apache2
-    sudo systemctl start nginx
-    sudo systemctl status nginx
-
-Add the line proxy_pass http://127.0.0.1:8080 in the location of the following file
-    sudo nano /etc/nginx/sites-available/default
-
-commands
-    sudo netstat -tulpn         Validate ports that have an active process
-
-
-If for some reason the Apache server is not on the same machine, we must change the respective IP address and port.
-Apache has a command to activate sites that is a2ensite that receives as a parameter the configuration file defined in /etc/apache2/sites-available. 
-NGINX does not have this command, which is why there is a soft link, that is, 
-when we create a configuration file in /etc/nginx/sites-available we must execute sudo ln -s /etc/nginx/sites-available/ nginx_config /etc/nginx/sites-enabled/
-
-Apache also allows me to disable sites and add modules
-sudo a2dissite 000-default
-sudo a2enmod rewrite headers env dir mime
-
-If we want to enable letsecrypt in NGINX, we need to add a line in the .htaccess to the path /var/www/html/host_name/.htaccess. The line is SetEnvIf X-Forwarded-Proto https
 
 
 ---NGINX INSTALLATION
@@ -373,7 +316,7 @@ installing nginx
     sudo systemctl status nginx
     netstat -tulpn
 
-if port 80 is already taken
+if port 80 is already in use 
     netstat -tulpn                  tcp udp listening numeric
     sudo systemctl stop apache2
     sudo systemctl status apache2
@@ -389,7 +332,7 @@ edit nginx files
         cd /var/www/html
             curl localhost
                 vi /etc/nginx/sites-available/default   to see the reading order
-            curl -I localhost                           headers of the server that is responding
+            curl -I localhost                           headers of the server that is responding in this case nginx 
     cd /etc/nginx/sites-enabled/                        activated sites
     ll
 
@@ -485,48 +428,6 @@ cd nagios-plugins-2.2.1
     sudo ./configure
     sudo make all
     sudo make install
-
-------USERS 
-Debian 1000 >
-id          user id 
-whoami      user 
-
-cat /etc/passwd         all OS user 
-    x  it means that the password is encrypted elsewhere.
-sudo cat /etc/shadow    it shows passwords 
-passwd + user           this allows change passwords 
-
-
-------CREATING AND MANAGING USER ACCOUNTS 
--create users 
-sudo useradd "someuser"       doesn't ask for password, and doesn't create a home 
-    cat /etc/passwd         verify that user was created
-
-sudo adduser "someuser"       it asks for passwords and create a home 
-
--delete users 
-    sudo userdel "someuser" 
-
--modify users 
-    sudo usermod "someuser" 
-
--switchin user 
-    sudo su - "someuser"                  switch to "someuser" 
--adding to groups 
-    sudo gpasswd -a "someuser" sudo       add to sudo group 
--removing from groups
-    sudo gpasswd -d "someuser" sudo 
-    grupos "someuser"                     verify groups 
-sudo -l                                   view permissions 
-
-
------PAM  Pluggable Authentication Modules (PAM) 
-CentOS 
-ls /etc/pam.d 
-ls /lib64/security/
-ls /etc/security 
-pswcore                 validate the strength of a password
-
 
 
 -----LOGS 
