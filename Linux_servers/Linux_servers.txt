@@ -340,8 +340,8 @@ edit nginx files
 ----NGINX AMPLIFY
 Installation process
 
-Install Python 2.7
-sudo apt install python2.7
+Install Python 'current version'
+sudo apt install python'current version' 
 
 Move to the Nginx folder
 cd /etc/nginx
@@ -428,10 +428,55 @@ cd nagios-plugins-2.2.1
     sudo ./configure
     sudo make all
     sudo make install
+    sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg       verify errors 
+
+In our home, download the MySQL plugin
+wget https://labs.consol.de/assets/downloads/nagios/check_mysql_health-2.2.2.tar.gz -O mysqlplugin.tar.gz
+
+tar xzvf mysqlplugin.tar.gz
+
+
+------NAGIOS CONFIGURATION 
+sudo mysql 
+
+-Inside the MySQL console, create a user.
+grant select on *.* to 
+CREATE USER ‘nagios’@‘localhost’ IDENTIFIED BY ‘nagiosplatziS14*’;
+GRANT ALL PRIVILEGES ON *.* TO ‘nagios’@‘localhost’;
+FLUSH PRIVILEGES;
+
+-configure
+sudo vim /usr/local/nagios/etc/nagios.cfg
+#Already inside the file, add the following line:
+cfg_file=/usr/local/nagios/etc/objects/mysqlmonitoring.cfg
+exit
+
+-Create commands to make use of Nagios
+sudo vim /usr/local/nagios/etc/objects/commands.cfg
+#Already inside the file, add the following lines:
+
+define command {
+command_name check_mysql_health
+command_line $USER1$/check_mysql_health -H $ARG4$ --username $ARG1$ --password $ARG2$ --port $ARG5$ --mode $ARG3$
+}
+
+-Create the file that we named in the configuration in the nagios.cfg file
+sudo vim /usr/local/nagios/etc/objects/mysqlmonitoring.cfg
+#Already in the file, add the following lines
+
+define service {
+use local-service
+host_name localhost
+service_description MySQL connection-time
+check_command check_mysql_health!nagios!nagiosplatziS14*!connection-time!127.0.0.1!3306!
+}
+
+sudo systemctl restart nagios
+
 
 
 -----LOGS 
-find /etc/ -type f                      find recieve a path 
+find /etc/ -type f                      'find' command recieves a path 
 
 find /var/log/ -name "*.log" type f     find 'logs' of type file
 find /var/log/ ! -name "*.log" type f   find all files that do not have a '.log' extension
@@ -652,4 +697,106 @@ Scan for additional vulnerability information
     nikto -h <Server IP> -o file.txt
 
 
-------
+
+------LYNIS - Linux security audit
+sudo apt search lynis 
+sudo apt install lynis 
+sudo apt lynis audit system 
+
+
+
+-----NODE - Productive environment
+Clone the repository needed to make the class
+    git clone https://github.com/edisoncast/linux-platzi
+
+Install Node.js and npm
+    sudo apt install nodejs npm
+
+Positioned at home, download Node 10
+    curl -sL https://deb.nodesource.com/setup_10.x -o node_setup.sh
+
+Install Node 10
+    sudo bash node_setup.sh
+
+Install gcc, g++ and make
+    sudo apt install gcc g++ make
+
+Finish the Node version 10 installation process
+    sudo apt install -y nodejs
+
+Add the nodejs user if you haven't created it yet
+    sudo adduser nodejs
+
+In the linux-platzi folder, run the file server.js
+    node server.js
+
+Create a configuration file for the Node service
+    sudo vim /lib/systemd/system/platzi@.service
+
+# Once the file is created, fill it with the following information
+
+[Units]
+Description=Load Balancing for Platzi
+Documentation=https://github.com/edisoncast/linux-platzi
+After=network.target
+
+[Service]
+Environment=PORT=%i
+type=simple
+User=nodejs
+WorkingDirectory=/home/nodejs/server
+ExecStart=/usr/bin/node /home/nodejs/server/server.js
+Restart-on=failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+----NGINX - configuration for the Node.js application
+NGINX configuration for the Node.js application
+
+Change user to nodejs
+    sudo su - nodejs
+Clone the repository needed for the class
+    git clone https://github.com/edisoncast/linux-platzi
+Rename the folder from linux-platzi to server
+Fix bugs in service configuration file at /lib/systemd/system/platzi@.service
+Start the service (we must be in the /server/server_configuration/bash folder)
+    ./enable.sh
+    ./start.sh
+Start the Nginx service (Shut down Apache first if necessary)
+    sudo systemctl start nginx
+Once in the /etc/nginx/sites-available/ folder delete the content of the Nginx configuration
+    sudo truncate -s0 default
+Edit the configuration file
+    sudo vim default
+
+# Once in the file, write the following
+
+server {
+listen 80 default_server;
+listen [::]:80 default_server;
+
+server_name _;
+
+location / {
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header Host $host;
+proxy_http_version 1.1;
+proxy_pass http://backend;
+}
+}
+
+upstream backend {
+server127.0.0.1:3000;
+server127.0.0.1:3001;
+server127.0.0.1:3002;
+server127.0.0.1:3003;
+}
+We validate that the established configuration was correct
+sudo nginx -t
+We restart nginx
+sudo systemctl restart nginx
+We test everything by curling to localhost
+curl localhost
