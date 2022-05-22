@@ -760,7 +760,7 @@ Change user to nodejs
     sudo su - nodejs
 Clone the repository needed for the class
     git clone https://github.com/edisoncast/linux-platzi
-Rename the folder from linux-platzi to server
+*Rename the folder from linux-platzi to server
 Fix bugs in service configuration file at /lib/systemd/system/platzi@.service
 Start the service (we must be in the /server/server_configuration/bash folder)
     ./enable.sh
@@ -794,6 +794,7 @@ server127.0.0.1:3001;
 server127.0.0.1:3002;
 server127.0.0.1:3003;
 }
+
 We validate that the established configuration was correct
 sudo nginx -t
 We restart nginx
